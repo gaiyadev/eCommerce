@@ -10,8 +10,14 @@ const ConnectDb = async () => {
       useCreateIndex: true,
       useFindAndModify: false,
     })
-    .then(() => consola.success("Connected to Database Successfully..."))
-    .catch((err) => consola.error("Failed Could not connect to Database", err));
+    .then(() =>
+      consola.success(
+        `Connected to Database Successfully...${process.env.MONGO_URL}`
+      )
+    )
+    .catch((err) =>
+      consola.error("Failed: Could not connect to Database", err)
+    );
 };
 
 ConnectDb();
