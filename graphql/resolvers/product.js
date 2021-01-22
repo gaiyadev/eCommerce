@@ -5,7 +5,7 @@ module.exports = {
   // ADD NEW PRODUCT
   addProduct: async (args, req, res) => {
     if (!req.isAuth) {
-      throw new Error("Unauthenticated request");
+      throw new Error("Unauthorized request");
     }
 
     const { name, price, sku, color, image } = args.productData;
@@ -54,7 +54,7 @@ module.exports = {
       sku: savedProduct.sku,
       image: savedProduct.image,
       addedBy: savedProduct.addedBy,
-      message: "Product added Successfully",
+      message: "Product added successfully",
     };
   },
   // FETCH ALL PRODUCT
@@ -72,7 +72,7 @@ module.exports = {
   // GET A ALL PRODUCT CREATED BY A SINGLE ADMIN
   adminProduct: async ({ adminId }, req) => {
     if (!req.isAuth) {
-      throw new Error("Unauthenticated request");
+      throw new Error("Unauthorized request");
     }
 
     try {
@@ -100,7 +100,7 @@ module.exports = {
   // UPDATE A PRODUCT BY ID
   updateProductById: async ({ productId, productData }, req) => {
     if (!req.isAuth) {
-      throw new Error("Unauthenticated request");
+      throw new Error("Unauthorized request");
     }
     const { name, price, sku, color, image } = productData;
 
@@ -135,13 +135,13 @@ module.exports = {
       addedBy: savedProduct.addedBy,
       createdAt: dateToString(savedProduct.createdAt),
       updatedAt: dateToString(savedProduct.updatedAt),
-      message: "Product updated Successfully",
+      message: "Product updated successfully",
     };
   },
   // DELETE A PRODUCT BY ID
   deleteProductById: async ({ productId }, req) => {
     if (!req.isAuth) {
-      throw new Error("Unauthenticated request");
+      throw new Error("Unauthorized request");
     }
 
     try {

@@ -1,5 +1,4 @@
 const Admin = require("../../models/admin");
-const Product = require("../../models/product");
 
 module.exports = {
   createAdmin: async (args) => {
@@ -24,7 +23,7 @@ module.exports = {
       email: savedAdmin.email,
       username: savedAdmin.username,
       password: null,
-      message: "Account created Successfully",
+      message: "Account created successfully",
     };
   },
 
@@ -50,7 +49,7 @@ module.exports = {
     );
 
     if (!passwordMatch) {
-      throw new Error("Username or password is invalid.");
+      throw new Error("Username or Password is invalid.");
     }
 
     const token = await Admin.generateToken(
@@ -63,11 +62,11 @@ module.exports = {
     return {
       _id: checkAdmin._id,
       email: checkAdmin.email,
-      password: null,
       username: checkAdmin.username,
+      password: null,
       token,
       tokenExpired: 1,
-      message: "Login Successfully",
+      message: "Login successfully",
     };
   },
 };

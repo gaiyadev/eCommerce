@@ -1,6 +1,4 @@
-const { body, validationResult, check } = require("express-validator");
 const User = require("../../models/user");
-const Joi = require("joi");
 
 module.exports = {
   createUser: async (args) => {
@@ -11,7 +9,7 @@ module.exports = {
 
     const checkUser = await User.getUserByEmail(email);
     if (checkUser) {
-      throw new Error("User already exist.");
+      throw new Error("User with the same email already exist.");
     }
     //create a User
     const newUser = User({
@@ -25,7 +23,7 @@ module.exports = {
       email: savedUser.email,
       username: savedUser.username,
       password: null,
-      message: "Account created Successfully",
+      message: "Account created successfully",
     };
   },
 
@@ -60,11 +58,11 @@ module.exports = {
     return {
       _id: checkUser._id,
       email: checkUser.email,
-      password: null,
       username: checkUser.username,
+      password: null,
       token,
       tokenExpired: 1,
-      message: "Login Successfully",
+      message: "Login successfully",
     };
   },
 };
