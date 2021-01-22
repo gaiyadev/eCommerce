@@ -2,6 +2,7 @@ const Product = require("../../models/product");
 const { dateToString } = require("../../helpers/date");
 
 module.exports = {
+  // ADD NEW PRODUCT
   addProduct: async (args, req, res) => {
     if (!req.isAuth) {
       throw new Error("Unauthenticated request");
@@ -37,6 +38,7 @@ module.exports = {
       message: "Product added Successfully",
     };
   },
+  // FETCH ALL PRODUCT
   allProduct: async () => {
     try {
       const product = await Product.allProduct();
@@ -48,6 +50,7 @@ module.exports = {
       throw err;
     }
   },
+  // GET A ALL PRODUCT CREATED BY A SINGLE ADMIN
   adminProduct: async ({ adminId }, req) => {
     if (!req.isAuth) {
       throw new Error("Unauthenticated request");
@@ -63,6 +66,7 @@ module.exports = {
       throw err;
     }
   },
+  // GET A PRODUCT BY ID
   getProductById: async ({ productId }) => {
     try {
       const product = await Product.getProductById(productId);
@@ -74,6 +78,7 @@ module.exports = {
       throw err;
     }
   },
+  // UPDATE A PRODUCT BY ID
   updateProductById: async ({ productId, productData }, req) => {
     if (!req.isAuth) {
       throw new Error("Unauthenticated request");
@@ -105,6 +110,7 @@ module.exports = {
       message: "Product updated Successfully",
     };
   },
+  // DELETE A PRODUCT BY ID
   deleteProductById: async ({ productId }, req) => {
     if (!req.isAuth) {
       throw new Error("Unauthenticated request");

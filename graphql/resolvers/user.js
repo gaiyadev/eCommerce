@@ -65,8 +65,8 @@ module.exports = {
     }
 
     const token = await User.generateToken(
-      checkUser.email,
       checkUser._id,
+      checkUser.email,
       checkUser.username
     );
 
