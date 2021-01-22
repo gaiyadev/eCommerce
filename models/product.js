@@ -21,6 +21,10 @@ const ProductSchema = new mongoose.Schema(
     color: {
       type: String,
     },
+    addedBy: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Admin",
+    },
   },
   { timestamps: true }
 );
@@ -40,8 +44,8 @@ module.exports.addProduct = async (newProduct) => {
 // FIND USER BY ID
 module.exports.getProductById = async (id) => {
   try {
-    const productId = await Product.findById(id);
-    return productId;
+    const product = await Product.findById(id);
+    return product;
   } catch (err) {
     throw err;
   }
@@ -52,6 +56,29 @@ module.exports.allProduct = async () => {
     const product = await Product.find();
     if (!product) return;
     return product;
+  } catch (err) {
+    throw err;
+  }
+};
+
+module.exports.updateProduct = async ({
+  productId,
+  name,
+  price,
+  sku,
+  color,
+  image,
+}) => {
+  try {
+    const product = await Product.findByIdAndUpdate(productId);
+    if (!product) return;
+    product.name = name;
+    product.price = price;
+    product.sku = sku;
+    product.color = color;
+    product.image = image;
+    const savedProduct = await product.save();
+    return savedProduct;
   } catch (err) {
     throw err;
   }

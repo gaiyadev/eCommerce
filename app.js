@@ -6,6 +6,7 @@ require("dotenv").config();
 const { graphqlHTTP } = require("express-graphql");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+const isAuth = require("./middleware/isAuth");
 
 var app = express();
 
@@ -17,6 +18,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const graphQLSchema = require("./graphql/schema/index");
 const graphQLResolver = require("./graphql/resolvers/index");
+
+app.use(isAuth);
 
 app.use(
   "/api/graphql",

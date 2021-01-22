@@ -63,8 +63,8 @@ module.exports = {
     }
 
     const token = await Admin.generateToken(
-      checkAdmin.email,
       checkAdmin._id,
+      checkAdmin.email,
       checkAdmin.username
     );
 

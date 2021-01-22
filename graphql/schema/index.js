@@ -24,10 +24,13 @@ module.exports = buildSchema(`
      type Product {
         _id: ID!
         name: String!
-        price: String
+        price: String!
         image: String!
         sku: String!
         color: String!
+        addedBy: String!
+        createdAt: String
+        updatedAt: String
         message: String
     }
 
@@ -45,7 +48,7 @@ module.exports = buildSchema(`
 
     input ProductData {
         name: String!
-        price: String
+        price: String!
         image: String!
         sku: String!
         color: String!
@@ -55,12 +58,17 @@ module.exports = buildSchema(`
         loginUser(email: String!, password: String!): User!
         loginAdmin(email: String!, password: String!): Admin!
         allProduct: [Product!]! 
+        adminProduct(adminId: ID!):[Product!]!
+        getProductById(productId: ID!): [Product!]!
+        
     }
 
     type RootMutation {
         createUser(userData: UserData): User!
         createAdmin(adminData: AdminData): Admin!
         addProduct(productData: ProductData): Product!
+        updateProductById(productId: ID!, productData: ProductData): Product!
+        deleteProductById(productId: ID!): Product!
     }
 
     schema {
