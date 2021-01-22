@@ -15,6 +15,20 @@ module.exports = {
     if (!sku) throw new Error("Sku Number is required");
     if (!image) throw new Error("Image is required");
 
+    let imageFile;
+    let uploadPath;
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+      throw new Error("No files were uploaded.");
+    }
+
+    imageFile = req.files.image;
+    uploadPath = __dirname + "/public/images/products/" + imageFile.name;
+
+    const uploadedFile = imageFile.mv(uploadPath);
+    if (!uploadedFile) {
+      throw new Error("No files were uploaded.");
+    }
     const newProduct = Product({
       name: name,
       price: price,

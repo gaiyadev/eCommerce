@@ -7,7 +7,7 @@ const { graphqlHTTP } = require("express-graphql");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const isAuth = require("./middleware/isAuth");
-
+const fileUpload = require("express-fileupload");
 var app = express();
 
 app.use(logger("dev"));
@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 const graphQLSchema = require("./graphql/schema/index");
 const graphQLResolver = require("./graphql/resolvers/index");
+app.use(fileUpload());
 
 app.use(isAuth);
 

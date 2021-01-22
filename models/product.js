@@ -83,3 +83,5 @@ module.exports.updateProduct = async ({
     throw err;
   }
 };
+
+module.exports.uploadProductImage = async (image) => {};
