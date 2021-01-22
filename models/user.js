@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 require("../database/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const Joi = require("joi");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -83,3 +84,23 @@ module.exports.generateToken = async (_id, email, username) => {
     throw err;
   }
 };
+
+module.exports.validateUserInput = (email, password, username) => {
+  const schema = Joi.object({
+    email: Joi.string().min(5).max(255).required().email(),
+    username: Joi.string().min(4).max(11).required(),
+    password: Joi.string().min(6).max(255).required(),
+  });
+  const { error } = schema.validate({
+    username: username,
+    email: email,
+    password: password,
+  });
+  if (error) {
+    const errors = error.details[0].message;
+    throw new Error(`${errors}`);
+  }
+};
+
+
+

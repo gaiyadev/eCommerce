@@ -1,23 +1,12 @@
 const Admin = require("../../models/admin");
+const Product = require("../../models/product");
 
 module.exports = {
   createAdmin: async (args) => {
     const { email, password, username } = args.adminData;
-    if (!email) {
-      throw new Error("Email is required");
-    }
-    if (!password) {
-      throw new Error("Password is required");
-    }
-    if (password.length < 6) {
-      throw new Error("Password must be at least 6 chars long");
-    }
-    if (!username) {
-      throw new Error("Username is required");
-    }
-    if (username.length < 4) {
-      throw new Error("Username must be at least 4 chars long");
-    }
+
+    const checkErrors = Admin.validateAdminInput(email, password, username);
+    if (checkErrors) return;
 
     const checkAdmin = await Admin.getAdminByEmail(email);
     if (checkAdmin) {
@@ -41,14 +30,16 @@ module.exports = {
 
   loginAdmin: async (args) => {
     const { email, password } = args;
-    if (!email) {
-      throw new Error("Email is required");
-    }
-    if (!password) {
-      throw new Error("Password is required");
-    }
+    const username = "username";
+    const checkErrors = await Admin.validateAdminInput(
+      email,
+      password,
+      username
+    );
+    if (checkErrors) return;
 
     const checkAdmin = await Admin.getAdminByEmail(email);
+
     if (!checkAdmin) {
       throw new Error("Username or password is invalid.");
     }

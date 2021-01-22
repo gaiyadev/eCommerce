@@ -1,27 +1,15 @@
 const { body, validationResult, check } = require("express-validator");
 const User = require("../../models/user");
+const Joi = require("joi");
 
 module.exports = {
   createUser: async (args) => {
     const { email, password, username } = args.userData;
-    if (!email) {
-      throw new Error("Email is required");
-    }
-    if (!password) {
-      throw new Error("Password is required");
-    }
-    if (password.length < 6) {
-      throw new Error("Password must be at least 6 chars long");
-    }
-    if (!username) {
-      throw new Error("Username is required");
-    }
-    if (username.length < 4) {
-      throw new Error("Username must be at least 4 chars long");
-    }
+
+    const checkErrors = await User.validateUserInput(email, password, username);
+    if (checkErrors) return;
 
     const checkUser = await User.getUserByEmail(email);
-    console.log(checkUser);
     if (checkUser) {
       throw new Error("User already exist.");
     }
@@ -43,16 +31,14 @@ module.exports = {
 
   loginUser: async (args) => {
     const { email, password } = args;
-    if (!email) {
-      throw new Error("Email is required");
-    }
-    if (!password) {
-      throw new Error("Password is required");
-    }
+    const username = "username";
+
+    const checkErrors = await User.validateUserInput(email, password, username);
+    if (checkErrors) return;
 
     const checkUser = await User.getUserByEmail(email);
     if (!checkUser) {
-      throw new Error("Username or password is invalid.");
+      throw new Error("Username or Password is invalid.");
     }
 
     const passwordMatch = await User.comparePassword(
@@ -61,7 +47,7 @@ module.exports = {
     );
 
     if (!passwordMatch) {
-      throw new Error("Username or password is invalid.");
+      throw new Error("Username or Password is invalid.");
     }
 
     const token = await User.generateToken(

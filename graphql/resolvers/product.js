@@ -9,26 +9,31 @@ module.exports = {
     }
 
     const { name, price, sku, color, image } = args.productData;
-    if (!name) throw new Error("Name is required");
-    if (!price) throw new Error("Price is required");
-    if (!color) throw new Error("Color is required");
-    if (!sku) throw new Error("Sku Number is required");
-    if (!image) throw new Error("Image is required");
 
-    let imageFile;
-    let uploadPath;
+    const checkErrors = await Product.validateProductInput(
+      name,
+      price,
+      sku,
+      color,
+      image
+    );
+    if (checkErrors) return;
 
-    if (!req.files || Object.keys(req.files).length === 0) {
-      throw new Error("No files were uploaded.");
-    }
+    // let imageFile;
+    // let uploadPath;
 
-    imageFile = req.files.image;
-    uploadPath = __dirname + "/public/images/products/" + imageFile.name;
+    // if (!req.files || Object.keys(req.files).length === 0) {
+    //   throw new Error("No files were uploaded.");
+    // }
 
-    const uploadedFile = imageFile.mv(uploadPath);
-    if (!uploadedFile) {
-      throw new Error("No files were uploaded.");
-    }
+    // imageFile = req.files.image;
+    // uploadPath = __dirname + "/public/images/products/" + imageFile.name;
+
+    // const uploadedFile = imageFile.mv(uploadPath);
+    // if (!uploadedFile) {
+    //   throw new Error("No files were uploaded.");
+    // }
+
     const newProduct = Product({
       name: name,
       price: price,
@@ -98,6 +103,15 @@ module.exports = {
       throw new Error("Unauthenticated request");
     }
     const { name, price, sku, color, image } = productData;
+
+    const checkErrors = Product.validateProductInput(
+      name,
+      price,
+      sku,
+      color,
+      image
+    );
+    if (checkErrors) return;
 
     const savedProduct = await Product.updateProduct({
       productId: productId,

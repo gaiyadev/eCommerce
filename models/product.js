@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 require("../database/db");
+const Joi = require("joi");
 
 const ProductSchema = new mongoose.Schema(
   {
@@ -81,6 +82,29 @@ module.exports.updateProduct = async ({
     return savedProduct;
   } catch (err) {
     throw err;
+  }
+};
+
+module.exports.validateProductInput = (name, price, sku, color, image) => {
+  const schema = Joi.object({
+    name: Joi.string().min(2).max(255).required(),
+    price: Joi.string().min(2).max(11).required(),
+    sku: Joi.string().min(2).max(255).required(),
+    color: Joi.string().required(),
+    image: Joi.required(),
+  });
+
+  const { error } = schema.validate({
+    name: name,
+    price: price,
+    sku: sku,
+    color: color,
+    image: image,
+  });
+
+  if (error) {
+    const errors = error.details[0].message;
+    throw new Error(`${errors}`);
   }
 };
 
