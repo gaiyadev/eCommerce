@@ -9,7 +9,7 @@ module.exports = {
 
     const checkAdmin = await Admin.getAdminByEmail(email);
     if (checkAdmin) {
-      throw new Error("Admin already exist.");
+      throw new Error("Admin with this email address already exist.");
     }
     //create a User
     const newAdmin = Admin({
@@ -64,7 +64,7 @@ module.exports = {
       email: checkAdmin.email,
       username: checkAdmin.username,
       password: null,
-      token,
+      token: token,
       tokenExpired: 1,
       message: "Login successfully",
     };

@@ -60,7 +60,7 @@ module.exports = {
       email: checkUser.email,
       username: checkUser.username,
       password: null,
-      token,
+      token:token,
       tokenExpired: 1,
       message: "Login successfully",
     };
