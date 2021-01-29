@@ -2,6 +2,7 @@
   color: #ffffff;
   text-decoration: none;
   padding: 0px 10px;
+  box-sizing: border-box;
   font-size: 14px;
 }
 

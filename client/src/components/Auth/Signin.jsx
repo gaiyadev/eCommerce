@@ -17,6 +17,7 @@ const SignIn = () => {
                     <Form.Control
                       size="lg"
                       type="email"
+                      required
                       placeholder="Enter email"
                     />
                   </Form.Group>
@@ -25,6 +26,7 @@ const SignIn = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                       size="lg"
+                      required
                       type="password"
                       placeholder="Password"
                     />

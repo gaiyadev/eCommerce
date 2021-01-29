@@ -16,7 +16,8 @@ const Signup = () => {
                   <Form.Group controlId="email">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
-                      size="lg"
+                                          size="lg"
+                                          required
                       type="email"
                       placeholder="Enter email"
                     />
@@ -26,6 +27,7 @@ const Signup = () => {
                     <Form.Label>Username</Form.Label>
                     <Form.Control
                       size="lg"
+                      required
                       type="text"
                       placeholder="Enter username"
                     />
@@ -35,6 +37,7 @@ const Signup = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                       size="lg"
+                      required
                       type="password"
                       placeholder="Password"
                     />
