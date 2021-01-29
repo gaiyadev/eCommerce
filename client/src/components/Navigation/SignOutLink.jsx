@@ -5,11 +5,11 @@ import { Nav } from "react-bootstrap";
 const SignOutLink = () => {
   return (
     <div>
-      <Nav.Link>
+      <Nav>
         <NavLink id="link" to="/">
           SignOut
         </NavLink>
-      </Nav.Link>
+      </Nav>
     </div>
   );
 };

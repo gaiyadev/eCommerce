@@ -1,6 +1,5 @@
 import "./App.css";
 import Navbar from "./components/Navigation/Navbar";
-//import { Container } from "react-bootstrap";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import SignIn from "./components/Auth/Signin";

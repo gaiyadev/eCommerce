@@ -11,7 +11,6 @@ const SignIn = () => {
             <Card>
               <Card.Body>
                 <Card.Title color="primary--text">LOGIN</Card.Title>
-
                 <Form>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>

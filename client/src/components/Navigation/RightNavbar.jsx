@@ -14,21 +14,21 @@ const RightNavbar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" fixed="top">
             <Nav className="ml-auto">
-              <Nav.Link>
+              <Nav>
                 <NavLink id="link" to="/">
                   Home
                 </NavLink>
-              </Nav.Link>
-              <Nav.Link id="link">
+              </Nav>
+              <Nav id="link">
                 <NavLink id="link" to="/signup">
                   Signup
                 </NavLink>
-              </Nav.Link>
-              <Nav.Link>
+              </Nav>
+              <Nav>
                 <NavLink id="link" to="/signin">
                   Signin
                 </NavLink>
-              </Nav.Link>
+              </Nav>
               <SignOutLink />
             </Nav>
           </Navbar.Collapse>

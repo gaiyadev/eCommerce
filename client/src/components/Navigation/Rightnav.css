@@ -1,4 +1,13 @@
 #link {
   color: #ffffff;
   text-decoration: none;
+  padding: 0px 10px;
+  font-size: 14px;
+}
+
+#link:hover {
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0px 10px;
+  opacity: 0.9;
 }
