@@ -10,7 +10,7 @@ const SignIn = () => {
           <Col md={6}>
             <Card>
               <Card.Body>
-                <Card.Title color="primary--text">LOGIN</Card.Title>
+                <Card.Title color="primary--text">ADMIN LOGIN</Card.Title>
 
                 <Form>
                   <Form.Group controlId="formBasicEmail">

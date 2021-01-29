@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Form, Button, Container, Col, Row } from "react-bootstrap";
 
-const SignIn = () => {
+const Signup = () => {
   return (
     <div>
       <Container fluid="true">
@@ -10,10 +10,9 @@ const SignIn = () => {
           <Col md={6}>
             <Card>
               <Card.Body>
-                <Card.Title color="primary--text">LOGIN</Card.Title>
-
+                <Card.Title color="primary--text">ADD ADMIN</Card.Title>
                 <Form>
-                  <Form.Group controlId="formBasicEmail">
+                  <Form.Group controlId="email">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
                       size="lg"
@@ -22,7 +21,16 @@ const SignIn = () => {
                     />
                   </Form.Group>
 
-                  <Form.Group controlId="formBasicPassword">
+                  <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                      size="lg"
+                      type="text"
+                      placeholder="Enter username"
+                    />
+                  </Form.Group>
+
+                  <Form.Group controlId="password">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                       size="lg"
@@ -30,11 +38,8 @@ const SignIn = () => {
                       placeholder="Password"
                     />
                   </Form.Group>
-                  <Form.Group controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Remember me" />
-                  </Form.Group>
-                  <Button block size="lg" variant="primary" type="submit">
-                    Login
+                  <Button size="lg" block variant="primary" type="submit">
+                    Register
                   </Button>
                 </Form>
               </Card.Body>
@@ -47,4 +52,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Signup;
