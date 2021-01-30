@@ -1,9 +1,12 @@
 import React from "react";
 import { Card, Form, Button, Container, Col, Row } from "react-bootstrap";
+import Navbar from "../../components/Navigation/Navbar";
 
 const SignIn = () => {
   return (
     <div>
+      <Navbar />
+
       <Container fluid="true">
         <Row>
           <Col md={3}></Col>

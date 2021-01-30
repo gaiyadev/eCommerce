@@ -1,9 +1,14 @@
 import React from "react";
+import { Container } from "react-bootstrap";
+import BreadCrum from "../../components/Dashbaord/Header/BreadCrum";
 
 const Dashboard = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
+      <BreadCrum />
+      <Container>
+        <h1>User</h1>
+      </Container>
     </div>
   );
 };
