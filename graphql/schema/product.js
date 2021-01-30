@@ -1,5 +1,5 @@
 const { buildSchema } = require("graphql");
-
+//USELESS;
 module.exports = buildSchema(`
 
      type Product {

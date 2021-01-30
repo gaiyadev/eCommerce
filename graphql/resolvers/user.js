@@ -101,7 +101,9 @@ module.exports = {
     );
 
     if (newPassCheck) {
-      throw new Error("New password can not be equal to current password");
+      throw new Error(
+        "New password can not be the same with the current password"
+      );
     }
     const savedPassword = await User.updatePassword(new_password, userId);
     if (!savedPassword) {
@@ -132,7 +134,7 @@ module.exports = {
 
     const user = await User.updateUserProfile(userId, email, username);
     if (!user) {
-      throw new Error("User not found.");
+      throw new Error("Soemthing went wrong.");
     }
     return {
       _id: user._id,
