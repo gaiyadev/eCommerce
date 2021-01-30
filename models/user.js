@@ -102,5 +102,68 @@ module.exports.validateUserInput = (email, password, username) => {
   }
 };
 
+// VALIDATE USER PASSWORD
+module.exports.validatePasswordInput = (
+  password,
+  new_password,
+  confirm_password
+) => {
+  const schema = Joi.object({
+    password: Joi.string().min(6).max(255).required(),
+    new_password: Joi.string().min(6).max(255).required(),
+    confirm_password: Joi.string().min(6).max(255).required(),
+  });
+  const { error } = schema.validate({
+    password: password,
+    new_password: new_password,
+    confirm_password: confirm_password,
+  });
+  if (error) {
+    const errors = error.details[0].message;
+    throw new Error(`${errors}`);
+  }
+};
 
+// VALIDATE USE PROFILE INPUT
+module.exports.validateProfileInput = (email, username) => {
+  const schema = Joi.object({
+    email: Joi.string().min(5).max(255).required().email(),
+    username: Joi.string().min(4).max(11).required(),
+  });
+  const { error } = schema.validate({
+    username: username,
+    email: email,
+  });
+  if (error) {
+    const errors = error.details[0].message;
+    throw new Error(`${errors}`);
+  }
+};
 
+// UPDATE USER DETAILS
+module.exports.updateUserProfile = async (userId, email, username) => {
+  try {
+    const user = await User.findByIdAndUpdate(userId);
+    if (!user) return;
+    user.email = email;
+    user.username = username;
+    const savedUser = await user.save();
+    return savedUser;
+  } catch (err) {
+    throw err;
+  }
+};
+
+// UODATE PASSWORD
+module.exports.updatePassword = async (new_password, userId) => {
+  try {
+    const user = await User.findByIdAndUpdate(userId);
+    if (!user) return;
+    const hash = await bcrypt.hash(new_password, 12);
+    user.password = hash; //set hash password
+    const savedUser = await user.save();
+    return savedUser;
+  } catch (err) {
+    throw err;
+  }
+};

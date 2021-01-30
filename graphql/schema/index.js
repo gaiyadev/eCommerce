@@ -46,6 +46,18 @@ module.exports = buildSchema(`
         username: String!
     }    
 
+    input ChangePassword {
+        password: String!
+        new_password: String!
+        confirm_password: String!
+    }
+
+    input UserProfile {
+        email: String!
+        username: String!
+    }
+
+
     input ProductData {
         name: String!
         price: String!
@@ -69,6 +81,8 @@ module.exports = buildSchema(`
         addProduct(productData: ProductData): Product!
         updateProductById(productId: ID!, productData: ProductData): Product!
         deleteProductById(productId: ID!): Product!
+        changePassword(userId: ID!, changePassword: ChangePassword): User!        
+        changeProfile( userId: ID!, userProfile: UserProfile): User!    
     }
 
     schema {
