@@ -13,6 +13,9 @@ import EditProduct from "./components/administrator/Products/EditProduct";
 import AdminProfile from "./components/administrator/Auth/Profile";
 import UserProfile from "./components/Dashbaord/Profile";
 import Orders from "./components/Dashbaord/Orders";
+import Test from "./components/test";
+
+
 
 function App() {
   return (
@@ -30,6 +33,8 @@ function App() {
           <Route path="/home/edit" exact component={EditProduct}></Route>
           <Route path="/home/profile" exact component={AdminProfile}></Route>
 
+          <Route path="/test" exact component={Test}></Route>
+
           <Route path="/dashboard" exact component={UserDashboard}></Route>
           <Route
             path="/dashboard/profile"
@@ -46,7 +51,7 @@ function App() {
         </Switch>
         <Footer />
       </div>
-    </BrowserRouter>
+      </BrowserRouter>
   );
 }
 

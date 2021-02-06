@@ -42,7 +42,7 @@ module.exports.addProduct = async (newProduct) => {
   }
 };
 
-// FIND USER BY ID
+// FIND PRODUCT BY ID
 module.exports.getProductById = async (id) => {
   try {
     const product = await Product.findById(id);
@@ -52,6 +52,7 @@ module.exports.getProductById = async (id) => {
   }
 };
 
+// FETCH ALL PRODUCT
 module.exports.allProduct = async () => {
   try {
     const product = await Product.find();
@@ -62,6 +63,7 @@ module.exports.allProduct = async () => {
   }
 };
 
+// UPDATE PRODUCT
 module.exports.updateProduct = async ({
   productId,
   name,
@@ -85,6 +87,7 @@ module.exports.updateProduct = async ({
   }
 };
 
+// VALIDATING PRODUCT INPUTS
 module.exports.validateProductInput = (name, price, sku, color, image) => {
   const schema = Joi.object({
     name: Joi.string().min(2).max(255).required(),
@@ -108,4 +111,5 @@ module.exports.validateProductInput = (name, price, sku, color, image) => {
   }
 };
 
+// UPLOAD PRODUCT IMAGE
 module.exports.uploadProductImage = async (image) => {};

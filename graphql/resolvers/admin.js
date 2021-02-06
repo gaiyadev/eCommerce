@@ -69,4 +69,11 @@ module.exports = {
       message: "Login successfully",
     };
   },
+  allUsers: async () => {
+    const users = await Admin.allUsers();
+    if (!users) {
+      return users;
+    }
+    return users;
+  },
 };

@@ -1,11 +1,10 @@
-import e from "express";
-
 export const user_registration = "user_registration";
 export const user_login = "user_login";
 export const user_change_password = "user_change_password";
 export const user_update_profile = "user_update_profile";
-export const login_success = "login_success";
+export const success_message = "success_message";
 export const login_fail = "login_fail";
+export const error_message = "error_message";
 
 export const admin_login = "admin_login";
 export const delete_product = "delete_product";

@@ -35,10 +35,10 @@ module.exports = buildSchema(`
     }
 
     input AdminData {
-            email: String!
-            password: String!
-            username: String!
-        }  
+        email: String!
+        password: String!
+         username: String!
+    }  
 
     input UserData {
         email: String!
@@ -69,10 +69,10 @@ module.exports = buildSchema(`
     type RootQuery {
         loginUser(email: String!, password: String!): User!
         loginAdmin(email: String!, password: String!): Admin!
-        allProduct: [Product!]! 
+        allProduct: [Product!]!
+        allUsers: [User!]!
         adminProduct(adminId: ID!):[Product!]!
-        getProductById(productId: ID!): [Product!]!
-        
+        getProductById(productId: ID!): [Product!]!        
     }
 
     type RootMutation {

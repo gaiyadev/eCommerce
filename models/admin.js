@@ -3,6 +3,7 @@ require("../database/db");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Joi = require("joi");
+const User = require("../models/user");
 
 const AdminSchema = new mongoose.Schema(
   {
@@ -85,6 +86,7 @@ module.exports.generateToken = async (_id, email, username) => {
   }
 };
 
+//VALIDATE ADMIN INPUTS
 module.exports.validateAdminInput = (email, password, username) => {
   const schema = Joi.object({
     email: Joi.string().min(5).max(255).required().email(),
@@ -99,5 +101,16 @@ module.exports.validateAdminInput = (email, password, username) => {
   if (error) {
     const errors = error.details[0].message;
     throw new Error(`${errors}`);
+  }
+};
+
+// FETCH ALL Users
+module.exports.allUsers = async () => {
+  try {
+    const users = await User.find().select("-password");
+    if (!users) return;
+    return users;
+  } catch (err) {
+    throw err;
   }
 };

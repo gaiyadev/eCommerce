@@ -8,6 +8,8 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const isAuth = require("./middleware/isAuth");
 const fileUpload = require("express-fileupload");
+var cors = require("cors");
+
 var app = express();
 
 app.use(logger("dev"));
@@ -15,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use(cors());
 
 const graphQLSchema = require("./graphql/schema/index");
 const graphQLResolver = require("./graphql/resolvers/index");
@@ -23,7 +26,7 @@ app.use(fileUpload());
 app.use(isAuth);
 
 app.use(
-  "/api/graphql",
+  "/api/v1/graphql",
   graphqlHTTP({
     schema: graphQLSchema,
     rootValue: graphQLResolver,

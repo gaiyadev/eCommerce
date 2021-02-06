@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import Cart from "../Shop/Product";
 import Navbar from "../Navigation/Navbar";
 
 const Home = () => {
+  useEffect(() => {}, []);
   return (
     <div>
       <Navbar />
