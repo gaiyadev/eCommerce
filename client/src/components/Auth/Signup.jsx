@@ -2,16 +2,18 @@ import React, { useState } from "react";
 import { Card, Form, Button, Container, Col, Row } from "react-bootstrap";
 import Navbar from "../../components/Navigation/Navbar";
 import { useMutation } from "@apollo/client";
-import { CREATE_USER } from "../../apollos/mutations";
+import { CREATE_USER } from "../../apollos/mutations/user";
 import Notiflix from "notiflix";
+import { useHistory } from "react-router-dom";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errMsg, setErrMsg] = useState(false);
-  const [message, setMessage] = useState(false);
+  const [errMsg, setErrMsg] = useState("");
+  const [message, setMessage] = useState("");
+  let history = useHistory();
 
   const [createUser] = useMutation(CREATE_USER);
 
@@ -29,6 +31,7 @@ const Signup = () => {
         setLoading(false);
         setMessage(res.data.createUser.message);
         Notiflix.Notify.Success(`${message}`);
+        history.push("/signin");
       })
       .catch((err) => {
         setLoading(false);

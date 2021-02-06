@@ -2,15 +2,17 @@ import React, { useState } from "react";
 import { Card, Form, Button, Container, Col, Row } from "react-bootstrap";
 import Navbar from "../../components/Navigation/Navbar";
 import { useMutation } from "@apollo/client";
-import { LOGIN_USER } from "../../apollos/mutations";
+import { LOGIN_USER } from "../../apollos/mutations/user";
 import Notiflix from "notiflix";
+import { useHistory } from "react-router-dom";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [errMsg, setErrMsg] = useState(false);
-  const [message, setMessage] = useState(false);
+  const [message, setMessage] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  let history = useHistory();
 
   const [loginUser] = useMutation(LOGIN_USER);
 
@@ -25,19 +27,25 @@ const SignIn = () => {
     })
       .then((res) => {
         setLoading(false);
-        setMessage(res.data.loginUser.message);
+        const alert = res.data.loginUser.message;
+        setMessage(alert);
         Notiflix.Notify.Success(`${message}`);
+
         const token = res.data.loginUser.token;
         localStorage.setItem("jwt", token);
+
         const _id = res.data.loginUser._id;
         const email = res.data.loginUser.email;
         const username = res.data.loginUser.username;
+
         const user = {
           _id,
           email,
           username,
         };
         localStorage.setItem("user", JSON.stringify(user));
+        history.push("/dashboard");
+
       })
       .catch((err) => {
         setLoading(false);

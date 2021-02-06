@@ -27,3 +27,25 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const CHANGE_PASSWORD = gql`
+  mutation changePassword(
+    $userId: ID!
+    $password: String!
+    $new_password: String!
+    $confirm_password: String!
+  ) {
+    changePassword(
+      userId: $userId
+      changePassword: {
+        password: $password
+        new_password: $new_password
+        confirm_password: $confirm_password
+      }
+    ) {
+      _id
+      email
+      message
+    }
+  }
+`;
