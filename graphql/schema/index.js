@@ -44,7 +44,12 @@ module.exports = buildSchema(`
         email: String!
         password: String!
         username: String!
-    }    
+    } 
+    
+       input UserLoginData {
+        email: String!
+        password: String!
+    }
 
     input ChangePassword {
         password: String!
@@ -67,7 +72,6 @@ module.exports = buildSchema(`
     }
 
     type RootQuery {
-        loginUser(email: String!, password: String!): User!
         loginAdmin(email: String!, password: String!): Admin!
         allProduct: [Product!]!
         allUsers: [User!]!
@@ -77,6 +81,7 @@ module.exports = buildSchema(`
 
     type RootMutation {
         createUser(userData: UserData): User!
+        loginUser(userLoginData: UserLoginData): User!
         createAdmin(adminData: AdminData): Admin!
         addProduct(productData: ProductData): Product!
         updateProductById(productId: ID!, productData: ProductData): Product!

@@ -1,8 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, Form, Button, Container, Col, Row } from "react-bootstrap";
 import Navbar from "../../components/Navigation/Navbar";
+import { useMutation } from "@apollo/client";
+import { LOGIN_USER } from "../../apollos/mutations";
+import Notiflix from "notiflix";
 
 const SignIn = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [errMsg, setErrMsg] = useState(false);
+  const [message, setMessage] = useState(false);
+
+  const [loginUser] = useMutation(LOGIN_USER);
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    loginUser({
+      variables: {
+        email: email,
+        password: password,
+      },
+    })
+      .then((res) => {
+        setLoading(false);
+        setMessage(res.data.loginUser.message);
+        Notiflix.Notify.Success(`${message}`);
+        const token = res.data.loginUser.token;
+        localStorage.setItem("jwt", token);
+        const _id = res.data.loginUser._id;
+        const email = res.data.loginUser.email;
+        const username = res.data.loginUser.username;
+        const user = {
+          _id,
+          email,
+          username,
+        };
+        localStorage.setItem("user", JSON.stringify(user));
+      })
+      .catch((err) => {
+        setLoading(false);
+        const error = err.networkError.result.errors[0].message;
+        setErrMsg(error);
+        Notiflix.Notify.Failure(`${errMsg}`);
+      });
+  };
+
   return (
     <div>
       <Navbar />
@@ -14,13 +58,16 @@ const SignIn = () => {
             <Card>
               <Card.Body>
                 <Card.Title color="primary--text">LOGIN</Card.Title>
-                <Form>
+                <Form onSubmit={submitHandler}>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <Form.Control
                       size="lg"
                       type="email"
-                      required
+                      onChange={(event) => {
+                        const newEmail = event.target.value;
+                        setEmail(newEmail);
+                      }}
                       placeholder="Enter email"
                     />
                   </Form.Group>
@@ -29,7 +76,10 @@ const SignIn = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control
                       size="lg"
-                      required
+                      onChange={(event) => {
+                        const newPassword = event.target.value;
+                        setPassword(newPassword);
+                      }}
                       type="password"
                       placeholder="Password"
                     />
@@ -38,7 +88,7 @@ const SignIn = () => {
                     <Form.Check type="checkbox" label="Remember me" />
                   </Form.Group>
                   <Button block size="lg" variant="primary" type="submit">
-                    Login
+                    {loading ? "Login..." : "Login"}
                   </Button>
                 </Form>
               </Card.Body>

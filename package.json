@@ -26,7 +26,8 @@
     "mongoose": "^5.11.12",
     "morgan": "~1.9.1",
     "nodemailer": "^6.4.17",
-    "nodemailer-mailgun-transport": "^2.0.2"
+    "nodemailer-mailgun-transport": "^2.0.2",
+    "notiflix": "^2.7.0"
   },
   "devDependencies": {
     "@types/mongoose": "^5.10.3",

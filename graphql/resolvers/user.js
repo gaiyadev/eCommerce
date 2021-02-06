@@ -28,7 +28,7 @@ module.exports = {
   },
   // LOGIN USER
   loginUser: async (args) => {
-    const { email, password } = args;
+    const { email, password } = args.userLoginData;
     const username = "username";
 
     const checkErrors = await User.validateUserInput(email, password, username);
