@@ -1,0 +1,45 @@
+var express = require("express");
+var router = express.Router();
+const Product = require("../models/product");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/images/products");
+  },
+  filename: (req, file, cb) => {
+    let pic = file.originalname;
+    cb(null, pic);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5000000, //10mb
+  },
+  fileFilter: (req, file, cb) => {
+    // allow images only
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      console.log("Only image are allowed.");
+    }
+    cb(null, true);
+  },
+});
+/* GET home page. */
+router.post("/api/v1/file", upload.single("image"), async (req, res, next) => {
+  const image = req.file.originalname;
+  const myFile = req.file;
+  if (!myFile) return res.status(400).json({ error: "Image is required" });
+  imaget = new Product({
+    image: image,
+  });
+  await imaget
+    .save()
+    .then((y) => {
+      return res.status(200).json(y);
+    })
+    .catch((err) => console.log(err));
+});
+
+module.exports = router;

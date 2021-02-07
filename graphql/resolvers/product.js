@@ -19,20 +19,7 @@ module.exports = {
     );
     if (checkErrors) return;
 
-    // let imageFile;
-    // let uploadPath;
-
-    // if (!req.files || Object.keys(req.files).length === 0) {
-    //   throw new Error("No files were uploaded.");
-    // }
-
-    // imageFile = req.files.image;
-    // uploadPath = __dirname + "/public/images/products/" + imageFile.name;
-
-    // const uploadedFile = imageFile.mv(uploadPath);
-    // if (!uploadedFile) {
-    //   throw new Error("No files were uploaded.");
-    // }
+    //file upload
 
     const newProduct = Product({
       name: name,

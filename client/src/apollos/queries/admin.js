@@ -11,6 +11,5 @@ export const LOGIN_ADMIN = gql`
       message
       tokenExpired
     }
-  },
-   
+  }
 `;

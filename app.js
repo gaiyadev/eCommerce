@@ -5,9 +5,8 @@ var logger = require("morgan");
 require("dotenv").config();
 const { graphqlHTTP } = require("express-graphql");
 var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+// var productRouter = require("./routes/product");
 const isAuth = require("./middleware/isAuth");
-const fileUpload = require("express-fileupload");
 var cors = require("cors");
 
 var app = express();
@@ -21,7 +20,6 @@ app.use(cors());
 
 const graphQLSchema = require("./graphql/schema/index");
 const graphQLResolver = require("./graphql/resolvers/index");
-app.use(fileUpload());
 
 app.use(isAuth);
 
@@ -35,6 +33,6 @@ app.use(
 );
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+// app.use("/", productRouter);
 
 module.exports = app;

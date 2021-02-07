@@ -45,7 +45,6 @@ const SignIn = () => {
         };
         localStorage.setItem("user", JSON.stringify(user));
         history.push("/dashboard");
-
       })
       .catch((err) => {
         setLoading(false);
