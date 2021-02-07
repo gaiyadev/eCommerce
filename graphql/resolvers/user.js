@@ -144,4 +144,13 @@ module.exports = {
       message: "User profile updated successfully",
     };
   },
+  getUser: async ({ userId }) => {
+    try {
+      const user = await User.getUserById(userId);
+      if (!user) return;
+      return [user];
+    } catch (e) {
+      console.log(e);
+    }
+  },
 };

@@ -49,3 +49,27 @@ export const CHANGE_PASSWORD = gql`
     }
   }
 `;
+
+export const GET_USER_INFO = gql`
+  mutation getUser($userId: ID!) {
+    getUser(userId: $userId) {
+      email
+      _id
+      username
+    }
+  }
+`;
+
+export const UPDATE_USER_INFO = gql`
+  mutation userProfile($userId: ID!, $username: String!, $email: String!) {
+    changeProfile(
+      userId: $userId
+      userProfile: { email: $email, username: $username }
+    ) {
+      email
+      _id
+      username
+      message
+    }
+  }
+`;

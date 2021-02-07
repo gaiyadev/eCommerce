@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BreadCrum from "./Header/BreadCrum";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { GET_USER_INFO } from "../../apollos/queries/user";
-import { CHANGE_PASSWORD } from "../../apollos/mutations/user";
-import { useQuery, useMutation } from "@apollo/client";
+import {
+  CHANGE_PASSWORD,
+  GET_USER_INFO,
+  UPDATE_USER_INFO,
+} from "../../apollos/mutations/user";
+import { useMutation } from "@apollo/client";
 import Notiflix from "notiflix";
 import { useHistory } from "react-router-dom";
 
@@ -12,15 +15,61 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const [errMsg, setErrMsg] = useState("");
+
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
+
   const [current_password, setCurrent_password] = useState("");
   const [new_password, setNew_password] = useState("");
   const [retype_password, setRetype_password] = useState("");
-  const { data } = useQuery(GET_USER_INFO);
 
-  const submitHandler = () => {
-    console.log(email, username, data);
+  useEffect(() => {
+    user();
+  });
+
+  const [getUser] = useMutation(GET_USER_INFO);
+  const [changeProfile] = useMutation(UPDATE_USER_INFO);
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    const userData = JSON.parse(localStorage.getItem("user"));
+
+    changeProfile({
+      variables: {
+        userId: userData["_id"],
+        email: email,
+        username: username,
+      },
+    })
+      .then((res) => {
+        setLoading(false);
+        const alert = res.data.changeProfile.message;
+        setMessage(alert);
+        Notiflix.Notify.Success(`${message}`);
+      })
+      .catch((err) => {
+        setLoading(false);
+        const error = err.networkError.result.errors[0].message;
+        setErrMsg(error);
+        Notiflix.Notify.Failure(`${errMsg}`);
+      });
+  };
+
+  const user = () => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    getUser({
+      variables: {
+        userId: userData["_id"],
+      },
+    })
+      .then((res) => {
+        const email = res.data.getUser[0].email;
+        const username = res.data.getUser[0].username;
+        setEmail(email);
+        setUsername(username);
+      })
+      .catch((err) => console.log(err));
   };
 
   // change password
@@ -70,7 +119,6 @@ const UserProfile = () => {
               <Form.Label>Current Password</Form.Label>
               <Form.Control
                 type="password"
-                id="current_password"
                 size="lg"
                 name="current_password"
                 onChange={(event) => {
@@ -90,7 +138,6 @@ const UserProfile = () => {
                   const newPassword = event.target.value;
                   setNew_password(newPassword);
                 }}
-                id="new_password"
                 name="new_password"
                 placeholder="New Password"
               />
@@ -98,7 +145,6 @@ const UserProfile = () => {
             <Form.Group controlId="retype_password">
               <Form.Label>Retype Password</Form.Label>
               <Form.Control
-                id="retype_password"
                 type="password"
                 size="lg"
                 onChange={(event) => {
@@ -122,7 +168,7 @@ const UserProfile = () => {
               <Form.Label>Email address</Form.Label>
               <Form.Control
                 size="lg"
-                id="email"
+                value={email}
                 name="email"
                 type="email"
                 onChange={(event) => {
@@ -138,7 +184,7 @@ const UserProfile = () => {
               <Form.Control
                 name="username"
                 type="text"
-                id="username"
+                value={username}
                 size="lg"
                 onChange={(event) => {
                   const newUsername = event.target.value;
@@ -149,7 +195,7 @@ const UserProfile = () => {
             </Form.Group>
 
             <Button block size="lg" variant="primary" type="submit">
-              Update Details
+              {loading ? " Updating..." : " Update Details"}
             </Button>
           </Form>
         </Col>

@@ -76,7 +76,7 @@ module.exports = buildSchema(`
         allProduct: [Product!]!
         allUsers: [User!]!
         adminProduct(adminId: ID!):[Product!]!
-        getProductById(productId: ID!): [Product!]!        
+        getProductById(productId: ID!): [Product!]! 
     }
 
     type RootMutation {
@@ -87,7 +87,8 @@ module.exports = buildSchema(`
         updateProductById(productId: ID!, productData: ProductData): Product!
         deleteProductById(productId: ID!): Product!
         changePassword(userId: ID!, changePassword: ChangePassword): User!        
-        changeProfile( userId: ID!, userProfile: UserProfile): User!    
+        changeProfile( userId: ID!, userProfile: UserProfile): User!  
+        getUser(userId: ID!):[User!]!         
     }
 
     schema {
