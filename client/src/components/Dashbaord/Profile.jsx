@@ -25,7 +25,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     user();
-    console.log(history);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [getUser] = useMutation(GET_USER_INFO);

@@ -1,8 +1,28 @@
+import React, { useState, useEffect } from "react";
 import { Breadcrumb } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
-import React from "react";
 const Header = () => {
+  let history = useHistory();
+
+  const logoutHandler = () => {
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("admin");
+    history.push("/admin");
+  };
+
+  const [email, setEmail] = useState("");
+  const isAuthenticated = () => {
+    const admin = JSON.parse(localStorage.getItem("admin"));
+    if (admin) {
+      setEmail(admin["username"]);
+    }
+  };
+
+  useEffect(() => {
+    isAuthenticated();
+  }, []);
+
   return (
     <div>
       <Breadcrumb>
@@ -18,6 +38,18 @@ const Header = () => {
         <Breadcrumb.Item active>
           <NavLink to="/home/profile">Data</NavLink>
         </Breadcrumb.Item>
+        <Breadcrumb.Item>
+          <button
+            className="btn btn-danger"
+            onClick={logoutHandler}
+            type="submit"
+          >
+            Logout
+          </button>
+        </Breadcrumb.Item>
+        <h6 style={{ margin: "10px" }}>
+          Welcome <span style={{ color: "red", margin: "5px" }}>{email}</span>
+        </h6>
       </Breadcrumb>
     </div>
   );

@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from "react";
 import { Breadcrumb } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-import React from "react";
 const Header = () => {
   let history = useHistory();
 
@@ -11,6 +11,18 @@ const Header = () => {
     localStorage.removeItem("user");
     history.push("/signin");
   };
+
+  const [email, setEmail] = useState("");
+  const isAuthenticated = () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      setEmail(user["username"]);
+    }
+  };
+
+  useEffect(() => {
+    isAuthenticated();
+  }, []);
 
   return (
     <div>
@@ -34,8 +46,12 @@ const Header = () => {
             type="submit"
           >
             Logout
-          </button>{" "}
+          </button>
         </Breadcrumb.Item>
+        <h6 style={{margin: '10px'}}>
+          
+          Welcome <span style={{color: 'red', margin: '5px'}} >{email}</span>
+        </h6>
       </Breadcrumb>
     </div>
   );
