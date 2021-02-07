@@ -1,3 +1,4 @@
+import React from 'react';
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
@@ -14,8 +15,7 @@ import AdminProfile from "./components/administrator/Auth/Profile";
 import UserProfile from "./components/Dashbaord/Profile";
 import Orders from "./components/Dashbaord/Orders";
 import Test from "./components/test";
-
-
+//import { isAuthenticated } from "./middleware/auth";
 
 function App() {
   return (
@@ -51,7 +51,7 @@ function App() {
         </Switch>
         <Footer />
       </div>
-      </BrowserRouter>
+    </BrowserRouter>
   );
 }
 

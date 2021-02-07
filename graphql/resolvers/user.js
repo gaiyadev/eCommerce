@@ -144,7 +144,10 @@ module.exports = {
       message: "User profile updated successfully",
     };
   },
-  getUser: async ({ userId }) => {
+  getUser: async ({ userId }, req) => {
+    if (!req.isAuth) {
+      throw new Error("Unauthorized request");
+    }
     try {
       const user = await User.getUserById(userId);
       if (!user) return;

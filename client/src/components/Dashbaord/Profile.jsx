@@ -25,36 +25,11 @@ const UserProfile = () => {
 
   useEffect(() => {
     user();
-  });
+    console.log(history);
+  }, []);
 
   const [getUser] = useMutation(GET_USER_INFO);
   const [changeProfile] = useMutation(UPDATE_USER_INFO);
-
-  const submitHandler = (event) => {
-    event.preventDefault();
-    setLoading(true);
-    const userData = JSON.parse(localStorage.getItem("user"));
-
-    changeProfile({
-      variables: {
-        userId: userData["_id"],
-        email: email,
-        username: username,
-      },
-    })
-      .then((res) => {
-        setLoading(false);
-        const alert = res.data.changeProfile.message;
-        setMessage(alert);
-        Notiflix.Notify.Success(`${message}`);
-      })
-      .catch((err) => {
-        setLoading(false);
-        const error = err.networkError.result.errors[0].message;
-        setErrMsg(error);
-        Notiflix.Notify.Failure(`${errMsg}`);
-      });
-  };
 
   const user = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -72,14 +47,35 @@ const UserProfile = () => {
       .catch((err) => console.log(err));
   };
 
+  const submitHandler = (event) => {
+    event.preventDefault();
+    const userData = JSON.parse(localStorage.getItem("user"));
+
+    changeProfile({
+      variables: {
+        userId: userData["_id"],
+        email: email,
+        username: username,
+      },
+    })
+      .then((res) => {
+        const alert = res.data.changeProfile.message;
+        setMessage(alert);
+        Notiflix.Notify.Success(`${message}`);
+      })
+      .catch((err) => {
+        const error = err.networkError.result.errors[0].message;
+        setErrMsg(error);
+        Notiflix.Notify.Failure(`${errMsg}`);
+      });
+  };
+
   // change password
   const [changePassword] = useMutation(CHANGE_PASSWORD);
-
   const changePasswordHandler = (event) => {
     event.preventDefault();
     setLoading(true);
     const userData = JSON.parse(localStorage.getItem("user"));
-
     changePassword({
       variables: {
         userId: userData["_id"],
@@ -93,9 +89,9 @@ const UserProfile = () => {
         const alert = res.data.changePassword.message;
         setMessage(alert);
         Notiflix.Notify.Success(`${message}`);
-        localStorage.removeItem("jwt");
-        localStorage.removeItem("user");
         history.push("/signin");
+        localStorage.removeItem("user");
+        localStorage.removeItem("jwt");
       })
       .catch((err) => {
         setLoading(false);
@@ -157,7 +153,7 @@ const UserProfile = () => {
             </Form.Group>
 
             <Button block size="lg" variant="primary" type="submit">
-              {loading ? "sending.." : "Change password"}{" "}
+              {loading ? "sending.." : "Change password"}
             </Button>
           </Form>
         </Col>
@@ -195,7 +191,7 @@ const UserProfile = () => {
             </Form.Group>
 
             <Button block size="lg" variant="primary" type="submit">
-              {loading ? " Updating..." : " Update Details"}
+              Update
             </Button>
           </Form>
         </Col>
