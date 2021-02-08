@@ -1,26 +1,46 @@
 import React from "react";
-import { Card } from "react-bootstrap";
-import { useQuery } from "@apollo/client";
-import { ALL_PRODUCT } from "../../apollos/queries/home";
-const Cart = () => {
-  const { loading, error, data } = useQuery(ALL_PRODUCT);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+import { Card, Row, Button, Col } from "react-bootstrap";
 
-  const cardList = data.allProduct.map((cart) => {
+const Cart = ({ cart }) => {
+  const addToCartHandler = (id) => {
+    console.log(">>>Id", id);
+  };
+
+  const viewProductHandler = (id) => {
+    console.log("View>>>", id);
+  };
+  const cardList = cart.allProduct.map((cart) => {
     return (
-      <Card.Body key={cart._id}>
-        <Card.Title> {cart.name} </Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{cart.price}</Card.Subtitle>
-        <Card.Text>{cart.image}</Card.Text>
-        <Card.Link href="#">Add to Card</Card.Link>
-        <Card.Link href="#">Another Link</Card.Link>
-      </Card.Body>
+      <Col md={3}>
+        <Card.Body key={cart._id}>
+          <Card.Title> {cart.name} </Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">
+            {cart.price}
+          </Card.Subtitle>
+          <Card.Text>{cart.image}</Card.Text>
+          <Card.Link href="#">
+            <Button
+              onClick={() => addToCartHandler(cart._id)}
+              className="btn btn-danger"
+            >
+              Add to Card
+            </Button>
+          </Card.Link>
+          <Card.Link href="#">
+            <Button
+              onClick={() => viewProductHandler(cart._id)}
+              className="btn btn-xs btn-info"
+            >
+              View
+            </Button>
+          </Card.Link>
+        </Card.Body>
+      </Col>
     );
   });
   return (
     <div>
-      <Card>{cardList}</Card>
+      <Row>{cardList} </Row>
     </div>
   );
 };
