@@ -9,7 +9,7 @@ const RightNavbar = () => {
   return (
     <div>
       <Container fluid="true">
-        <Navbar bg="primary" variant="dark" expand="lg">
+        <Navbar fixed="top" bg="primary" variant="dark" expand="lg">
           <Logo />
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav" fixed="top">

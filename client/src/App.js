@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 // import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
@@ -16,6 +16,7 @@ import UserProfile from "./components/Dashbaord/Profile";
 import Orders from "./components/Dashbaord/Orders";
 import Test from "./components/test";
 //import { isAuthenticated } from "./middleware/auth";
+// import { Redirect } from "react-router-dom";
 
 function App() {
   return (
@@ -25,17 +26,16 @@ function App() {
           <Route path="/" exact component={Home}></Route>
           <Route path="/signin" exact component={SignIn}></Route>
           <Route path="/signup" exact component={SignUp}></Route>
-
           <Route path="/admin" exact component={AdminSignIn}></Route>
           <Route path="/admin/signup" exact component={AdminSignUp}></Route>
           <Route path="/home" exact component={Dashboard}></Route>
           <Route path="/home/add" exact component={AddProduct}></Route>
           <Route path="/home/edit/:id" exact component={EditProduct}></Route>
           <Route path="/home/profile" exact component={AdminProfile}></Route>
-
           <Route path="/test" exact component={Test}></Route>
 
           <Route path="/dashboard" exact component={UserDashboard}></Route>
+          
           <Route
             path="/dashboard/profile"
             exact
@@ -46,7 +46,6 @@ function App() {
             exact
             component={UserProfile}
           ></Route>
-
           <Route path="/dashboard/orders" exact component={Orders}></Route>
         </Switch>
         <Footer />
