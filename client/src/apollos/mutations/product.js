@@ -25,3 +25,17 @@ export const ADD_PRODUCT = gql`
     }
   }
 `;
+
+export const DELETE_PRODUCT = gql`
+  mutation deleteProductById($productId: ID!) {
+    deleteProductById(productId: $productId) {
+      _id
+      name
+      color
+      price
+      message
+      image
+      addedBy
+    }
+  }
+`;

@@ -1,5 +1,30 @@
 const Product = require("../../models/product");
 const { dateToString } = require("../../helpers/date");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/images/products");
+  },
+  filename: (req, file, cb) => {
+    let pic = file.originalname;
+    cb(null, pic);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5000000, //10mb
+  },
+  fileFilter: (req, file, cb) => {
+    // allow images only
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      console.log("Only image are allowed.");
+    }
+    cb(null, true);
+  },
+});
 
 module.exports = {
   // ADD NEW PRODUCT

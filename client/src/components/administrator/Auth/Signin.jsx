@@ -15,6 +15,7 @@ const SignIn = () => {
 
   const { error, data } = useQuery(LOGIN_ADMIN, {
     variables: { email: email, password: password },
+        // pollInterval: 3444500,
   });
 
   const submitHandler = (event) => {

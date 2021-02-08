@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
+import { useParams } from "react-router-dom";
 import BreadCrum from "../Header/BreadCrum";
 import { Container, Form, Button } from "react-bootstrap";
+import { GET_PRODUCT_BY_ID } from "../../../apollos/queries/product";
 
 const EditProduct = () => {
+  let Id = useParams().id.toString();
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState("");
+  const [sku, setSku] = useState("");
+  const [color, setColor] = useState("");
+  // const [image, setImage] = useState("");
+
+  const { error, data, loading } = useQuery(GET_PRODUCT_BY_ID, {
+    variables: { productId: Id },
+    // pollInterval: 454545454500,
+  });
+  if (error) return <p>ERROR</p>;
+  if (loading) return <p>Loading</p>;
+
+  if (data) {
+    console.log(data);
+    setName(data.getProductById[0].name);
+    setPrice(data.getProductById[0].price);
+    setColor(data.getProductById[0].color);
+    setSku(data.getProductById[0].sku);
+  }
   return (
     <Container>
       <BreadCrum />
@@ -14,6 +38,7 @@ const EditProduct = () => {
             type="text"
             id="name"
             size="lg"
+            value={name}
             name="product_name"
             placeholder="Enter Product name"
           />
@@ -24,6 +49,7 @@ const EditProduct = () => {
           <Form.Control
             name="price"
             id="price"
+            value={price}
             size="lg"
             type="text"
             placeholder="Price"
@@ -36,6 +62,7 @@ const EditProduct = () => {
             name="sku"
             id="sku"
             type="text"
+            value={sku}
             size="lg"
             placeholder="SKu Number"
           />
@@ -47,6 +74,7 @@ const EditProduct = () => {
             name="price"
             id="color"
             size="lg"
+            value={color}
             type="text"
             placeholder="Color"
           />

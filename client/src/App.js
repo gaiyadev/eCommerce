@@ -30,7 +30,7 @@ function App() {
           <Route path="/admin/signup" exact component={AdminSignUp}></Route>
           <Route path="/home" exact component={Dashboard}></Route>
           <Route path="/home/add" exact component={AddProduct}></Route>
-          <Route path="/home/edit" exact component={EditProduct}></Route>
+          <Route path="/home/edit/:id" exact component={EditProduct}></Route>
           <Route path="/home/profile" exact component={AdminProfile}></Route>
 
           <Route path="/test" exact component={Test}></Route>
