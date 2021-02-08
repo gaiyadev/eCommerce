@@ -17,6 +17,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     productFetch();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -62,6 +63,7 @@ const Dashboard = () => {
   const { error, data, loading } = useQuery(ADMIN_PRODUCTS, {
     variables: { adminId: id },
   });
+
   if (loading)
     return (
       <p

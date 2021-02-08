@@ -8,18 +8,8 @@ const Home = () => {
   return (
     <div>
       <Navbar />
-
-      <Container fluid="true">
+      <Container>
         <Row>
-          <Col md={3}>
-            <Cart />
-          </Col>
-          <Col md={3}>
-            <Cart />
-          </Col>
-          <Col md={3}>
-            <Cart />
-          </Col>
           <Col md={3}>
             <Cart />
           </Col>
