@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Button, Nav, Container } from "react-bootstrap";
 import "./Rightnav.css";
 import Logo from "./Logo";
 import { NavLink } from "react-router-dom";
@@ -32,6 +32,7 @@ const RightNavbar = () => {
               <SignOutLink />
             </Nav>
           </Navbar.Collapse>
+          <Button  className="btn btn-danger">Carts <span>0</span> </Button>
         </Navbar>
       </Container>
       <br />

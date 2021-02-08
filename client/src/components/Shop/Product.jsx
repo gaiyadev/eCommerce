@@ -12,7 +12,7 @@ const Cart = ({ cart }) => {
   const cardList = cart.allProduct.map((cart) => {
     return (
       <Col md={3}>
-        <Card.Body key={cart._id}>
+        <Card.Body style={{ background: "#fff", margin: "5px" }} key={cart._id}>
           <Card.Title> {cart.name} </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             {cart.price}
@@ -40,6 +40,7 @@ const Cart = ({ cart }) => {
   });
   return (
     <div>
+      <h3 className="text-center text-primary">All Product</h3>
       <Row>{cardList} </Row>
     </div>
   );

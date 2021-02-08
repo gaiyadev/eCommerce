@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import {  Container } from "react-bootstrap";
 import Cart from "../Shop/Product";
 import Navbar from "../Navigation/Navbar";
 import { useQuery } from "@apollo/client";
