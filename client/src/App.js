@@ -14,7 +14,8 @@ import EditProduct from "./components/administrator/Products/EditProduct";
 import AdminProfile from "./components/administrator/Auth/Profile";
 import UserProfile from "./components/Dashbaord/Profile";
 import Orders from "./components/Dashbaord/Orders";
-import Test from "./components/test";
+import Cart from './components/Shop/Cart';
+
 //import { isAuthenticated } from "./middleware/auth";
 // import { Redirect } from "react-router-dom";
 
@@ -32,7 +33,7 @@ function App() {
           <Route path="/home/add" exact component={AddProduct}></Route>
           <Route path="/home/edit/:id" exact component={EditProduct}></Route>
           <Route path="/home/profile" exact component={AdminProfile}></Route>
-          <Route path="/test" exact component={Test}></Route>
+          <Route path="/cart" exact component={Cart}></Route>
 
           <Route path="/dashboard" exact component={UserDashboard}></Route>
           

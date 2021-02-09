@@ -32,7 +32,11 @@ const RightNavbar = () => {
               <SignOutLink />
             </Nav>
           </Navbar.Collapse>
-          <Button  className="btn btn-danger">Carts <span>0</span> </Button>
+          <a href="/cart">
+            <Button className="btn btn-danger">
+              Carts <span>0</span>
+            </Button>
+          </a>
         </Navbar>
       </Container>
       <br />

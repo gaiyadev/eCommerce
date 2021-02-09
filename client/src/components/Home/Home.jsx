@@ -4,6 +4,7 @@ import Cart from "../Shop/Product";
 import Navbar from "../Navigation/Navbar";
 import { useQuery } from "@apollo/client";
 import { ALL_PRODUCT } from "../../apollos/queries/home";
+
 const Home = () => {
   const { loading, error, data, refetch } = useQuery(ALL_PRODUCT);
   if (loading) return <h3 className="text-center text-info ">Loading...</h3>;
@@ -16,7 +17,7 @@ const Home = () => {
         <Button className="btn btn-primary" onClick={() => refetch()}>
           {loading ? "Refetching" : "Refetch!"}
         </Button>
-        <Cart cart={data} />
+        <Cart products={data} />
       </Container>
     </div>
   );
